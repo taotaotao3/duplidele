@@ -7,7 +7,10 @@ pip install duplidele==2.1.0
 
 # How to coding  
 import duplidele as dd  
-dd.exduplidele("test sentence test sentence duplicate delete", 5, 10000)  
+
+dd.duplidele('おはよう。猫さん。こんにちは。おはよう。猫さん。こんばんは。', 3)  
+or  
+dd.exduplidelechar("test sentence test sentence duplicate delete", 5)  
 
 # For example  
 <img src="attach:3.JPG">![3](https://user-images.githubusercontent.com/20910951/130186163-9514be15-dc08-4200-83fb-be39a4c34136.JPG)
@@ -18,10 +21,9 @@ dd.exduplidele("test sentence test sentence duplicate delete", 5, 10000)
 
 
 # What is exported?  
-sys.argv[1] str: test sentence test sentence duplicate delete  
-sys.argv[2] int: 5  
-sys.argv[3] int: 10000  
-last_sentence: test sentence duplicate delete  
+こんにちは。おはよう。猫さん。こんばんは。  
+or  
+test sentence duplicate delete  
 
 # License  
 MIT  
