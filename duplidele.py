@@ -34,8 +34,12 @@ def exduplidelechar(arg_1 = 'test sentence test sentence duplicate delete', arg_
                         except:
                             dupli = ori_str[int(original[find_i][0]):int(original[find_i][0]) + next_i + 1]
                             if delete_count_start <= same_count:
-                                after_ori_str = ori_str.replace(dupli, '', 1)
-                                return after_ori_str, flag_stop
+                                if str(original[i + next_i + 1][1]) == str(original[find_i][1]):
+                                    after_ori_str = ori_str.replace(dupli, '', 1)
+                                    return after_ori_str, flag_stop
+                                else:
+                                    after_ori_str = ori_str
+                                    break
                             else:
                                 after_ori_str = ori_str
                                 break
@@ -44,8 +48,12 @@ def exduplidelechar(arg_1 = 'test sentence test sentence duplicate delete', arg_
                         else:
                             dupli = ori_str[int(original[find_i][0]):int(original[find_i][0]) + next_i + 1]
                             if delete_count_start <= same_count:
-                                after_ori_str = ori_str.replace(dupli, '', 1)
-                                return after_ori_str, flag_stop
+                                if str(original[i + next_i + 1][1]) == str(original[find_i][1]):
+                                    after_ori_str = ori_str.replace(dupli, '', 1)
+                                    return after_ori_str, flag_stop
+                                else:
+                                    after_ori_str = ori_str
+                                    break
                             else:
                                 after_ori_str = ori_str
                                 break
@@ -59,7 +67,7 @@ def exduplidelechar(arg_1 = 'test sentence test sentence duplicate delete', arg_
 
     print(ori_str)
 
-def exduplidele(arg_1 = 'おはよう。猫さん。こんにちは。おはよう。猫さん。こんばんは。', arg_2 = 2):
+def exduplidele(arg_1 = 'おはよう。元気ですか？おはよう。元気ですか？猫さん。私は元気です。', arg_2 = 6):
     save_ori_str = ori_str = arg_1
     delete_count_start = arg_2
     con_num = int(len(arg_1)) + 2
@@ -92,24 +100,30 @@ def exduplidele(arg_1 = 'おはよう。猫さん。こんにちは。おはよ�
                             tm_str2 = str(original[i + next_i + 1][1])
                         except:
                             if delete_count_start <= same_count:
-                                if next_i == 0:
-                                    del original[int(find_i)]
-                                    ori_str = ''
-                                    for str_i2 in range(len(original)):
-                                        ori_str += original[str_i2][1]
-                                    after_ori_str = ori_str
-                                    if after_ori_str == save_ori_str:
-                                        flag_stop = 1
-                                    return after_ori_str, flag_stop
+                                if str(original[i + next_i + 1][1]) == str(original[find_i][1]):
+                                    if next_i == 0:
+                                        del original[int(find_i)]
+                                        ori_str = ''
+                                        for str_i2 in range(len(original)):
+                                            ori_str += original[str_i2][1]
+                                        after_ori_str = ori_str
+                                        if after_ori_str == save_ori_str:
+                                            flag_stop = 1
+                                        return after_ori_str, flag_stop
+                                    else:
+                                        del original[int(find_i + 1):int(find_i + next_i + 1)]
+                                        ori_str = ''
+                                        for str_i2 in range(len(original)):
+                                            ori_str += original[str_i2][1]
+                                        after_ori_str = ori_str
+                                        if after_ori_str == save_ori_str:
+                                            flag_stop = 1
+                                        return after_ori_str, flag_stop
                                 else:
-                                    del original[int(find_i + 1):int(find_i + next_i + 1)]
-                                    ori_str = ''
-                                    for str_i2 in range(len(original)):
-                                        ori_str += original[str_i2][1]
-                                    after_ori_str = ori_str
                                     if after_ori_str == save_ori_str:
                                         flag_stop = 1
-                                    return after_ori_str, flag_stop
+                                    after_ori_str = ori_str
+                                    break                               
                             else:
                                 if after_ori_str == save_ori_str:
                                     flag_stop = 1
@@ -119,13 +133,17 @@ def exduplidele(arg_1 = 'おはよう。猫さん。こんにちは。おはよ�
                             same_count += 1
                         else:
                             if delete_count_start <= same_count:
-                                del original[int(original[find_i][0]):int(original[find_i + next_i + 1][0])]
+                                if str(original[i + next_i + 1][1]) == str(original[find_i][1]):
+                                    del original[int(original[find_i][0]):int(original[find_i + next_i + 1][0])]
 
-                                ori_str = ''
-                                for str_i2 in range(len(original)):
-                                    ori_str += original[str_i2][1]
-                                after_ori_str = ori_str
-                                return after_ori_str, flag_stop
+                                    ori_str = ''
+                                    for str_i2 in range(len(original)):
+                                        ori_str += original[str_i2][1]
+                                    after_ori_str = ori_str
+                                    return after_ori_str, flag_stop
+                                else:
+                                    after_ori_str = ori_str
+                                    break
                             else:
                                 after_ori_str = ori_str
                                 break
