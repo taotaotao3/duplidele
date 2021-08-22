@@ -22,7 +22,7 @@ export ⇒test sentence duplicate delete
 
 2)Delete word by word  
 
-*◆最低6word以上のため発動*  
+*◆最低6word以上のため発動（変更可能）*  
 import duplidele as dd  
 dd.exduplidele("おはよう。元気ですか？おはよう。元気ですか？猫さん。私は元気です。", 6)  
 
