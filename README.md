@@ -22,20 +22,20 @@ export ⇒test sentence duplicate delete
 
 2)Delete word by word  
 
-*最低6word以上のため発動*  
+*◆最低6word以上のため発動*  
 import duplidele as dd  
 dd.exduplidele("おはよう。元気ですか？おはよう。元気ですか？猫さん。私は元気です。", 6)  
 
 export ⇒ おはよう。元気ですか？猫さん。私は元気です。  
 <img src="attach:3.JPG">![3](https://user-images.githubusercontent.com/20910951/130357295-336be47c-8de5-4864-90a8-9180d8ecbc91.JPG)
 
-*最低7word以上の設定にしてしまうと発動しない*  
+*◆最低7word以上の設定にしてしまうと発動しない*  
 import duplidele as dd  
 dd.exduplidele("おはよう。元気ですか？おはよう。元気ですか？猫さん。私は元気です。", 7)  
 
 export ⇒ おはよう。元気ですか？おはよう。元気ですか？猫さん。私は元気です。  
 
-*重複文章の間に他の文字が入ると発動しない*  
+*◆重複文章の間に他の文字が入ると発動しない*  
 import duplidele as dd  
 dd.exduplidele("おはよう。元気ですか？うん、おはよう。元気ですか？猫さん。私は元気です。", 6)  
 
