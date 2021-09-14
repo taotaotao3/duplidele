@@ -1,3 +1,4 @@
+import pdb
 import sys
 from janome.tokenizer import Tokenizer
 import pdb
@@ -18,9 +19,13 @@ def exduplidelechar(arg_1 = 'test sentence test sentence duplicate delete', arg_
             db.append(i)
             original.append(db)
         for i in range(len(original)):
+            # [0, 'リ']
             target_word = original[i]
+            # 0
             target_place = original[i][0]
+            
             for find_i in range(len(original)):
+
                 if original[find_i][0] == target_place:
                     continue
                 if str(original[find_i][1]) == str(original[i][1]):
@@ -28,12 +33,15 @@ def exduplidelechar(arg_1 = 'test sentence test sentence duplicate delete', arg_
                     # How about each other next word?
                     same_count = 1
                     for next_i in range(con_num):
+
                         try:
                             tm_str = str(original[find_i + next_i + 1][1])
                             tm_str2 = str(original[i + next_i + 1][1])
                         except:
                             dupli = ori_str[int(original[find_i][0]):int(original[find_i][0]) + next_i + 1]
+                            
                             if delete_count_start <= same_count:
+
                                 if str(original[i + next_i + 1][1]) == str(original[find_i][1]):
                                     after_ori_str = ori_str.replace(dupli, '', 1)
                                     return after_ori_str, flag_stop
@@ -43,11 +51,36 @@ def exduplidelechar(arg_1 = 'test sentence test sentence duplicate delete', arg_
                             else:
                                 after_ori_str = ori_str
                                 break
+                        
                         if str(original[find_i + next_i + 1][1]) == str(original[i + next_i + 1][1]):
                             same_count += 1
                         else:
                             dupli = ori_str[int(original[find_i][0]):int(original[find_i][0]) + next_i + 1]
                             if delete_count_start <= same_count:
+
+                                # ～である　　～です。　を同一と考える特例処置
+                                if (str(original[find_i + next_i + 1][1]) == 'あ' and str(original[i + next_i + 1][1]) == 'す'):
+                                    if (str(original[find_i + next_i + 2][1]) == 'る' and str(original[i + next_i + 2][1]) == '。'):
+                                        dupli = ori_str[int(original[find_i][0]):int(original[find_i][0]) + next_i + 1]
+                                        if delete_count_start <= same_count:
+                                            after_ori_str = ori_str.replace(dupli + 'ある', '', 1)
+                                            print('delete:', str(dupli) + 'ある')
+                                            return after_ori_str, flag_stop
+                                        else:
+                                            after_ori_str = ori_str
+                                            break
+                                # ～です。　　～である　を同一と考える特例処置
+                                if (str(original[find_i + next_i + 1][1]) == 'す' and str(original[i + next_i + 1][1]) == 'あ'):
+                                    if (str(original[find_i + next_i + 2][1]) == '。' and str(original[i + next_i + 2][1]) == 'る'):
+                                        dupli = ori_str[int(original[find_i][0]):int(original[find_i][0]) + next_i + 1]
+                                        if delete_count_start <= same_count:
+                                            after_ori_str = ori_str.replace(dupli + 'ある', '', 1)
+                                            print('delete:', str(dupli) + 'ある')
+                                            return after_ori_str, flag_stop
+                                        else:
+                                            after_ori_str = ori_str
+                                            break
+                                
                                 if str(original[i + next_i + 1][1]) == str(original[find_i][1]):
                                     after_ori_str = ori_str.replace(dupli, '', 1)
                                     return after_ori_str, flag_stop
@@ -91,6 +124,7 @@ def exduplidele(arg_1 = 'おはよう。元気ですか？おはよう。元気�
                 if original[find_i][0] == target_place:
                     continue
                 if str(original[find_i][1]) == str(original[i][1]):
+
                     # finding same words
                     # How about each other next word?
                     same_count = 1
